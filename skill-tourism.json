@@ -1,0 +1,683 @@
+{
+  "intents": [
+    {
+      "intent": "greetings",
+      "examples": [
+        {
+          "text": "good afternoon"
+        },
+        {
+          "text": "good evening"
+        },
+        {
+          "text": "good morning"
+        },
+        {
+          "text": "hello"
+        },
+        {
+          "text": "hi"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "location",
+      "examples": [
+        {
+          "text": "directions to charminar"
+        },
+        {
+          "text": "direct me to museum"
+        },
+        {
+          "text": "how to go to golkonda"
+        },
+        {
+          "text": "map to sanghi"
+        },
+        {
+          "text": "reach to birla mandir"
+        },
+        {
+          "text": "route to falaknuma"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "search",
+      "examples": [
+        {
+          "text": "best places to visit in hyderabad"
+        },
+        {
+          "text": "historical places in hyderabad"
+        },
+        {
+          "text": "search tourist spots in hyderabad"
+        },
+        {
+          "text": "where is golkonda in hyderabad?"
+        }
+      ],
+      "description": ""
+    }
+  ],
+  "entities": [
+    {
+      "entity": "greet",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "good afternoon",
+          "synonyms": [
+            "ga",
+            "gud afternoon"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "good evening",
+          "synonyms": [
+            "ge",
+            "gud evng"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "good morning",
+          "synonyms": [
+            "gm",
+            "gud mrng"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "hello",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "hi",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "location",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "directions",
+          "synonyms": [
+            "direction"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "direct me",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "go to",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "how to go",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "reach",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "route",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "places",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Birla Mandir",
+          "synonyms": [
+            "Birla temple"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "Charminar",
+          "synonyms": [
+            "Chudi bazar"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "Falaknuma palace",
+          "synonyms": [
+            "falaknuma",
+            "palace"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "Golkonda Fort",
+          "synonyms": [
+            "golconda",
+            "golkonda"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "sanghi temple",
+          "synonyms": [
+            "sanghi"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "saralarjung museum",
+          "synonyms": [
+            "museum",
+            "museums",
+            "salarjung"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "search",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "find",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "search",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    }
+  ],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    }
+  },
+  "dialog_nodes": [
+    {
+      "type": "standard",
+      "title": "Anything else",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "I didn't understand. You can try rephrasing."
+              },
+              {
+                "text": "Can you reword your statement? I'm not understanding."
+              },
+              {
+                "text": "I didn't get your meaning."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "anything_else",
+      "dialog_node": "Anything else",
+      "previous_sibling": "node_5_1618027232722",
+      "disambiguation_opt_out": true
+    },
+    {
+      "type": "standard",
+      "title": "greetings",
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "#greetings || @greet",
+      "dialog_node": "node_1_1618024173902",
+      "previous_sibling": "Welcome"
+    },
+    {
+      "type": "standard",
+      "title": "search",
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "#search || @search",
+      "digress_in": "does_not_return",
+      "dialog_node": "node_5_1618024933763",
+      "previous_sibling": "node_1_1618024173902"
+    },
+    {
+      "type": "standard",
+      "title": "location",
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "#location || @location",
+      "dialog_node": "node_5_1618027232722",
+      "previous_sibling": "node_6_1618025520655"
+    },
+    {
+      "type": "standard",
+      "title": "places",
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "@places",
+      "digress_in": "does_not_return",
+      "dialog_node": "node_6_1618025520655",
+      "previous_sibling": "node_5_1618024933763"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "source": "https://www.hyderabadtourism.travel/images/visiting-places/headers/sanghi-temple-hyderabad-tourism-entry-fee-timings-holidays-reviews-header.jpg",
+            "response_type": "image"
+          }
+        ]
+      },
+      "parent": "node_6_1618025520655",
+      "conditions": "@places:(sanghi temple)",
+      "dialog_node": "response_1_1618026234960",
+      "previous_sibling": "response_2_1618026226239"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hi!  I am your AI travel assistant .I will be exploring with you today."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1618024173902",
+      "conditions": "@greet:hi",
+      "dialog_node": "response_2_1618024218388"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Good afternoon!  I am your AI travel assistant .I will be exploring with you today."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1618024173902",
+      "conditions": "@greet:(good afternoon)",
+      "dialog_node": "response_2_1618024251544",
+      "previous_sibling": "response_9_1618024242601"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Good evening !  I am your AI travel assistant .I will be exploring with you today."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1618024173902",
+      "conditions": "@greet:(good evening)",
+      "dialog_node": "response_2_1618024262646",
+      "previous_sibling": "response_2_1618024251544"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "source": "https://guidetour.in/wp-content/uploads/2017/12/Golkonda-Fort.jpg",
+            "response_type": "image"
+          },
+          {
+            "source": "https://www.holidify.com/blog/wp-content/uploads/2015/11/15.png",
+            "response_type": "image"
+          }
+        ]
+      },
+      "parent": "node_6_1618025520655",
+      "conditions": "@places:(Golkonda Fort)",
+      "dialog_node": "response_2_1618026226239",
+      "previous_sibling": "response_5_1618026217217"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "source": "https://www.indiatourismguide.in/wp-content/uploads/2017/11/Charminar.jpg",
+            "response_type": "image"
+          },
+          {
+            "source": "https://i.pinimg.com/originals/7b/8f/11/7b8f113307d6febf2f31feb3db38fd3c.jpg",
+            "response_type": "image"
+          }
+        ]
+      },
+      "parent": "node_6_1618025520655",
+      "conditions": "@places:Charminar",
+      "dialog_node": "response_3_1618026203575",
+      "previous_sibling": "response_5_1618026141062"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "title": "Best places to visit in Hyderabad",
+            "options": [
+              {
+                "label": "Golkonda Fort",
+                "value": {
+                  "input": {
+                    "text": ""
+                  }
+                }
+              },
+              {
+                "label": "Charminar",
+                "value": {
+                  "input": {
+                    "text": ""
+                  }
+                }
+              },
+              {
+                "label": "Salarjung Museum",
+                "value": {
+                  "input": {
+                    "text": ""
+                  }
+                }
+              },
+              {
+                "label": "Birla Mandir",
+                "value": {
+                  "input": {
+                    "text": ""
+                  }
+                }
+              },
+              {
+                "label": "Falaknuma Palace",
+                "value": {
+                  "input": {
+                    "text": ""
+                  }
+                }
+              },
+              {
+                "label": "Sanghi Temple",
+                "value": {
+                  "input": {
+                    "text": ""
+                  }
+                }
+              },
+              {
+                "label": "Qutub shahi tombs",
+                "value": {
+                  "input": {
+                    "text": ""
+                  }
+                }
+              }
+            ],
+            "description": "choose a place you wanna visit ",
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "node_5_1618024933763",
+      "conditions": "@search",
+      "dialog_node": "response_4_1618024975209"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hello!  I am your AI travel assistant .I will be exploring with you today."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1618024173902",
+      "conditions": "@greet:hello",
+      "dialog_node": "response_5_1618024232734",
+      "previous_sibling": "response_2_1618024218388"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "source": "https://cdn.s3waas.gov.in/s36c524f9d5d7027454a783c841250ba71/uploads/bfi_thumb/2018110362-1-olwa27om94ggt0ggnziqsi0bzf52mt4ipks5do7iq2.jpg",
+            "response_type": "image"
+          },
+          {
+            "source": "https://www.indiatravelforum.in/attachments/rk-ashram-metro-station-to-birla-mandir-by-walk-jpg.2935/",
+            "response_type": "image"
+          }
+        ]
+      },
+      "parent": "node_6_1618025520655",
+      "conditions": "@places:(Birla Mandir)",
+      "dialog_node": "response_5_1618026141062"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "source": "https://i0.wp.com/bradajohnson.net/wp-content/uploads/2017/01/IMG_1547_Aurora2017_HDR-2.jpg?fit=1920%2C1280&ssl=1",
+            "response_type": "image"
+          },
+          {
+            "source": "https://i.pinimg.com/originals/b0/7b/45/b07b45b28833604fca223d12bff933ac.jpg",
+            "response_type": "image"
+          }
+        ]
+      },
+      "parent": "node_6_1618025520655",
+      "conditions": "@places:(Falaknuma palace)",
+      "dialog_node": "response_5_1618026217217",
+      "previous_sibling": "response_3_1618026203575"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hello!"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "Welcome",
+      "dialog_node": "response_6_1618024385174"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "source": "https://cdn.s3waas.gov.in/s36c524f9d5d7027454a783c841250ba71/uploads/2018/11/2018110246.jpg",
+            "response_type": "image"
+          },
+          {
+            "source": "https://thumbs.dreamstime.com/b/hyderabad-salarjung-museum-photo-near-charminar-salar-jung-museum-art-museum-located-dar-ul-shifa-southern-174921212.jpg",
+            "response_type": "image"
+          },
+          {
+            "source": "https://www.nkrealtors.com/blog/wp-content/uploads/2017/12/Salar-Jung-Museum-730x410.jpg",
+            "response_type": "image"
+          },
+          {
+            "source": "https://i0.wp.com/hyderabad-india-online.com/wp-content/uploads/2009/11/greater-hyd.png",
+            "response_type": "image"
+          }
+        ]
+      },
+      "parent": "node_6_1618025520655",
+      "conditions": "@places:(saralarjung museum)",
+      "dialog_node": "response_6_1618026244998",
+      "previous_sibling": "response_1_1618026234960"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "here is a map of metro rail in hyderabad for you to reach places more conveniently and fast"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "source": "https://www.ltmetro.com/wp-content/uploads/2019/06/Network-Map-small.jpg",
+            "response_type": "image"
+          },
+          {
+            "values": [
+              {
+                "text": "Thank you! for choosing AI assistant as your travel partner . I hope you have a wonderful exploration time."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_5_1618027232722",
+      "conditions": "@location",
+      "dialog_node": "response_6_1618027619785"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Good morning !  I am your AI travel assistant .I will be exploring with you today."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1618024173902",
+      "conditions": "@greet:(good morning)",
+      "dialog_node": "response_9_1618024242601",
+      "previous_sibling": "response_5_1618024232734"
+    },
+    {
+      "type": "standard",
+      "title": "Welcome",
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "welcome",
+      "dialog_node": "Welcome"
+    }
+  ],
+  "counterexamples": [],
+  "system_settings": {
+    "off_topic": {
+      "enabled": true
+    },
+    "disambiguation": {
+      "prompt": "Did you mean:",
+      "enabled": true,
+      "randomize": true,
+      "max_suggestions": 5,
+      "suggestion_text_policy": "title",
+      "none_of_the_above_prompt": "None of the above"
+    },
+    "system_entities": {
+      "enabled": true
+    },
+    "human_agent_assist": {
+      "prompt": "Did you mean:"
+    },
+    "intent_classification": {
+      "training_backend_version": "v2"
+    },
+    "spelling_auto_correct": true
+  },
+  "learning_opt_out": false,
+  "name": "tourism",
+  "language": "en",
+  "description": ""
+}
